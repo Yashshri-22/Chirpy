@@ -17,5 +17,6 @@ static/css/dist/
 .DS_Store
 Thumbs.db
 
-# Django media uploads
+# Django user uploads
 media/
+*/media/
