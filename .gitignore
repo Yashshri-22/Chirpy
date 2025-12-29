@@ -16,3 +16,6 @@ static/css/dist/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Django media uploads
+media/
