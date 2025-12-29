@@ -130,5 +130,5 @@ INTERNAL_IPS = ['127.0.0.1']
 NPM_BIN_PATH = r'C:\\Program Files\\nodejs\\npm.cmd'
 
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/tweet/'
+LOGIN_REDIRECT_URL = '/tweet/?welcome=1'
 LOGOUT_REDIRECT_URL = '/tweet/'

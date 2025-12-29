@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.db.models import Q
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -24,6 +25,14 @@ def tweet_list(request):
         'tweets': tweets,
         'query': query,
     })
+    
+def my_tweets(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    tweets = Tweet.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'my_tweets.html', {'tweets': tweets})
+
 @login_required
 def create_tweet(request):
     if request.method == "POST":
@@ -65,7 +74,8 @@ def register(request):
             user.set_password(form.cleaned_data['password1'])
             user.save()
             login(request, user)
-            return redirect('tweet_list')
+            messages.success(request, f"Welcome, {user.username} 👋")
+            return redirect('/tweet/?welcome=1')
     else:
         form = UserRegistrationForm()
 

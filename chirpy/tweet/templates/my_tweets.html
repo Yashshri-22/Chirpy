@@ -1,12 +1,9 @@
 {% extends 'layout.html' %}
 
-{% block title %}
-  Chirpy
-{% endblock %}
-
 {% block content %}
   <div class="container mt-4 mb-4">
-    <div class="mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h3 class="text-light mb-0">My Tweets</h3>
       <a href="{% url 'create_tweet' %}" class="btn btn-primary">Create Tweet</a>
     </div>
     {% if tweets %}
@@ -73,9 +70,7 @@
         {% endfor %}
       </div>
     {% else %}
-      <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
-        <h3 class="text-center text-secondary">No tweets found</h3>
-      </div>
+      <h3 class="text-center text-secondary mt-5">You haven't posted any tweets yet</h3>
     {% endif %}
   </div>
 {% endblock %}

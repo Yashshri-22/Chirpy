@@ -23,29 +23,11 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'tweet_list' %}">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Link</a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="#">Action</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Another action</a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Link</a>
-            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'my_tweets' %}">My Tweets</a>
+              </li>
+            {% endif %}
           </ul>
           {% if request.resolver_match.url_name == 'tweet_list' %}
             <form class="d-flex" role="search" method="get" action="{% url 'tweet_list' %}">
@@ -66,6 +48,29 @@
         </div>
       </div>
     </nav>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="toast show position-fixed top-0 end-0 m-4" role="alert">
+          <div class="toast-header">
+            <strong class="me-auto">Chirpy</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+          </div>
+          <div class="toast-body">👋 {{ message }}</div>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% if request.GET.welcome and user.is_authenticated %}
+      <div class="toast show position-fixed top-0 end-0 m-4" role="alert">
+        <div class="toast-header">
+          <strong class="me-auto">Chirpy</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">👋 Welcome back {{ user.username }}!</div>
+      </div>
+    {% endif %}
+
     <div class="container">
       {% block content %}
 
